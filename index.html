@@ -1,13 +1,973 @@
 <!DOCTYPE html>
-<html lang="">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>Mukunzi Nelly | Software Engineer & Full Stack Developer</title>
+  <meta name="description" content="Portfolio of Mukunzi Nelly, a Software Engineer specializing in Full Stack Development, Vue.js, Node.js, Laravel, and cloud solutions based in Kigali, Rwanda." />
+  <meta name="keywords" content="Mukunzi Nelly, Software Engineer, Full Stack Developer, Vue.js, Node.js, Laravel, Kigali, Rwanda, Web Developer Portfolio" />
+  <meta name="author" content="Mukunzi Nelly" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://your-domain.vercel.app/" />
+  <meta property="og:title" content="Mukunzi Nelly | Software Engineer" />
+  <meta property="og:description" content="Building innovative digital solutions, scalable APIs, and modern web applications with passion and precision." />
+  <meta property="og:image" content="/profile.png" />
+
+  <!-- Twitter Card -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content="Mukunzi Nelly | Software Engineer" />
+  <meta property="twitter:description" content="Building innovative digital solutions, scalable APIs, and modern web applications." />
+  <meta property="twitter:image" content="/profile.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/profile.png" />
+
+  <!-- JSON-LD Structured Data for Google Knowledge Panel -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Mukunzi Nelly",
+    "jobTitle": "Software Engineer",
+    "description": "Full Stack Developer specializing in Vue.js, Node.js, Laravel, and cloud solutions based in Kigali, Rwanda.",
+    "url": "https://your-domain.vercel.app",
+    "image": "https://your-domain.vercel.app/profile.png",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kigali",
+      "addressCountry": "Rwanda"
+    },
+    "sameAs": [
+      "https://github.com/",
+      "https://linkedin.com/",
+      "https://wa.me/250798437759"
+    ]
+  }
+  </script>
+
+  <!-- Vue 3 CDN (No build step required) -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <style>
+    /* YOUR EXACT DESIGN CSS - UNCHANGED */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      --bg-primary: #F5F5F5;
+      --bg-secondary: #FFFFFF;
+      --bg-glass: rgba(255, 255, 255, 0.85);
+      --accent: #2563EB;
+      --accent-dark: #1E40AF;
+      --accent-light: #DBEAFE;
+      --text-primary: #1E3A8A;
+      --text-secondary: #3B5998;
+      --line: rgba(37, 99, 235, 0.15);
+      --shadow: 0 10px 40px -10px rgba(37, 99, 235, 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+      font-size: 0.875rem;
+      line-height: 1.6;
+      letter-spacing: 0.01em;
+      background: var(--bg-primary); 
+      color: var(--text-primary); 
+    }
+
+    h1 { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+    h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+    h3 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; }
+
+    .loader { position: fixed; inset: 0; z-index: 9999; background: var(--bg-primary); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; }
+    .circle-dots { width: 60px; height: 60px; position: relative; animation: spin 2s linear infinite; }
+    .circle-dots span { position: absolute; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
+    .circle-dots span:nth-child(1) { top: 0; left: 25px; }
+    .circle-dots span:nth-child(2) { top: 25px; right: 0; }
+    .circle-dots span:nth-child(3) { bottom: 0; left: 25px; }
+    .circle-dots span:nth-child(4) { top: 25px; left: 0; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .loader-text { font-size: 1.1rem; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; }
+    .fade-enter-active, .fade-leave-active { transition: opacity 0.5s; }
+    .fade-enter-from, .fade-leave-to { opacity: 0; }
+
+    .smoke-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .smoke-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; animation: float 20s ease-in-out infinite; }
+    .blob-1 { width: 50vw; height: 50vw; background: var(--accent); top: -10%; left: -10%; }
+    .blob-2 { width: 40vw; height: 40vw; background: var(--accent-dark); bottom: -10%; right: -10%; animation-delay: -5s; }
+    .blob-3 { width: 30vw; height: 30vw; background: var(--accent-light); top: 40%; left: 40%; animation-delay: -10s; }
+    @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(30px, -30px) scale(1.05); } }
+
+    .main-content { padding-top: 90px; padding-bottom: 0; }
+    .mobile-header { display: none; }
+
+    .top-nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 70px;
+      background: var(--bg-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line); z-index: 100;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 2rem;
+    }
+
+    .nav-profile { display: flex; align-items: center; gap: 0.75rem; }
+    .profile-photo-small { width: 40px; height: 40px; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent); }
+    .profile-photo-small img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .nav-profile-info { display: flex; flex-direction: column; }
+    .nav-profile-info .name { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+    .nav-profile-info .title { font-size: 0.65rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .nav-links { display: flex; gap: 0.5rem; flex: 1; justify-content: center; }
+    .nav-item { 
+      display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 8px; 
+      color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.75rem; 
+      text-transform: uppercase; letter-spacing: 0.04em; transition: all 0.25s ease; 
+    }
+    .nav-item:hover, .nav-item.active { color: var(--accent); background: var(--accent-light); }
+    .nav-icon { display: flex; align-items: center; }
+
+    .view-section { padding: 3rem 2.5rem; min-height: calc(100vh - 90px); }
+    .fade-in { animation: fadeIn 0.4s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .section-title { font-size: 1.75rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .section-subtitle { color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; line-height: 1.6; font-size: 0.85rem; }
+
+    .hero { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: center; margin-bottom: 3rem; }
+    .hero-photo-large { 
+      width: 220px; height: 220px; border-radius: 50%; overflow: hidden;
+      border: 4px solid var(--bg-secondary); box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.3); 
+      position: relative; margin: 0 auto; 
+    }
+    .hero-photo-large img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
+    .hero-photo-large::after { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 2px dashed var(--accent); opacity: 0.3; animation: spin 30s linear infinite; }
+
+    .hero-text h1 { margin-bottom: 0.75rem; }
+    .gradient-text { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .typewriter-container { font-size: 1.1rem; color: var(--accent); font-weight: 600; margin-bottom: 0.75rem; min-height: 1.5rem; letter-spacing: 0.02em; }
+    .caret { animation: blink 1s steps(2) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .subtitle { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6; }
+    .hero-buttons { display: flex; gap: 0.75rem; }
+    .btn-primary { padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; text-align: center; letter-spacing: 0.02em; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: white; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.3); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.4); }
+    .btn-secondary { background: transparent; border: 1.5px solid var(--accent); color: var(--accent); padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; text-align: center; letter-spacing: 0.02em; }
+    .btn-secondary:hover { background: var(--accent); color: white; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 3rem; }
+    .stat-card { padding: 1.25rem; text-align: center; border-radius: 12px; background: var(--bg-glass); border: 1px solid var(--line); backdrop-filter: blur(10px); }
+    .stat-number { font-size: 1.75rem; color: var(--accent); margin-bottom: 0.25rem; font-weight: 700; }
+    .stat-label { color: var(--text-secondary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .glass { background: var(--bg-glass); border: 1px solid var(--line); border-radius: 12px; backdrop-filter: blur(10px); }
+    .glass-sm { background: var(--accent-light); border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem; }
+    .card { padding: 1.25rem; }
+    .hoverable { transition: all 0.3s ease; }
+    .hoverable:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow); }
+
+    .about-content-wrapper { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start; margin-bottom: 3rem; }
+    .about-profile-square { width: 200px; height: 200px; border-radius: 12px; overflow: hidden; border: 3px solid var(--accent); box-shadow: 0 10px 30px -5px rgba(37, 99, 235, 0.2); position: relative; }
+    .about-profile-square img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block; }
+    .company-info { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(30, 58, 138, 0.95), transparent); color: white; padding: 1rem; text-align: center; }
+    .company-info strong { display: block; font-size: 0.9rem; margin-bottom: 0.25rem; }
+    .company-info span { font-size: 0.75rem; opacity: 0.9; }
+    .about-text { max-width: 800px; line-height: 1.7; color: var(--text-secondary); }
+    .about-text .lead { font-size: 0.95rem; color: var(--text-primary); font-weight: 600; margin-bottom: 0.75rem; }
+    .about-text p { margin-bottom: 0.75rem; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 3rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 3rem; }
+    .grid-1 { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 3rem; }
+    .card-icon { color: var(--accent); margin-bottom: 0.75rem; display: flex; }
+    .tech-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; list-style: none; }
+    .tech-list li { font-size: 0.7rem; padding: 0.25rem 0.6rem; background: var(--accent-light); border-radius: 6px; color: var(--accent-dark); font-weight: 500; letter-spacing: 0.02em; }
+
+    .testimonials-section { margin-bottom: 3rem; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }
+    .testimonial-card { display: flex; flex-direction: column; gap: 1rem; }
+    .testimonial-header { display: flex; align-items: center; gap: 1rem; }
+    .testimonial-avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.25rem; flex-shrink: 0; }
+    .testimonial-info h4 { font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.2rem; }
+    .testimonial-role { display: block; font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+    .testimonial-company { display: block; font-size: 0.75rem; color: var(--text-secondary); font-style: italic; }
+    .testimonial-text { font-size: 0.85rem; line-height: 1.6; color: var(--text-secondary); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem; margin: 0; }
+
+    .cta-section { margin-bottom: 2rem; }
+    .cta-content { text-align: center; padding: 3rem 2rem; }
+    .cta-content h2 { font-size: 1.75rem; margin-bottom: 1rem; color: var(--text-primary); }
+    .cta-content p { max-width: 600px; margin: 0 auto 1.5rem; color: var(--text-secondary); line-height: 1.6; }
+
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tab-btn { padding: 0.5rem 1rem; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--text-secondary); cursor: pointer; font-weight: 600; font-size: 0.75rem; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.03em; }
+    .tab-btn.active, .tab-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+    .project-card { display: flex; flex-direction: column; }
+    .project-thumb { 
+      height: 200px; 
+      border-radius: 10px; 
+      margin-bottom: 0.75rem; 
+      overflow: hidden;
+      position: relative;
+      background: var(--accent-light);
+    }
+    .project-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .project-card:hover .project-thumb-img {
+      transform: scale(1.05);
+    }
+    .project-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.3), rgba(30, 64, 175, 0.5));
+      display: grid;
+      place-items: center;
+      font-size: 3rem;
+      color: white;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .project-card:hover .project-thumb-overlay {
+      opacity: 1;
+    }
+    .project-meta { display: flex; gap: 0.4rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+    .badge { font-size: 0.65rem; padding: 0.2rem 0.5rem; border-radius: 6px; background: var(--accent-light); color: var(--accent-dark); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+    .badge.featured { background: var(--accent); color: white; }
+    .year { font-size: 0.75rem; color: var(--text-secondary); }
+    .project-info h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+    .project-info p { color: var(--text-secondary); font-size: 0.8rem; line-height: 1.5; margin-bottom: 0.75rem; }
+
+    .project-detail-card { display: grid; grid-template-columns: 1fr 1.5fr; gap: 2rem; align-items: start; }
+    .project-thumb-large { 
+      height: 300px; 
+      border-radius: 12px; 
+      overflow: hidden;
+      position: relative;
+    }
+    .project-detail-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .detail-title { font-size: 1.75rem; margin: 0.75rem 0; color: var(--text-primary); }
+    .detail-desc { color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; font-size: 0.9rem; }
+    .detail-features h3 { font-size: 1rem; margin-bottom: 0.75rem; color: var(--accent); }
+    .feature-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .feature-list li { font-size: 0.85rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.5rem; }
+    .project-links { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+    .btn-sm { padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-decoration: none; transition: all 0.3s; cursor: pointer; border: none; }
+    .btn-sm.secondary { background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--line); }
+    .btn-sm.secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-sm.primary { background: var(--accent); color: white; }
+    .btn-sm.primary:hover { background: var(--accent-dark); }
+    .link-sm { font-size: 0.8rem; color: var(--accent); text-decoration: none; font-weight: 600; }
+    .mb-4 { margin-bottom: 1.5rem; }
+    .mt-4 { margin-top: 1.5rem; }
+
+    .two-col { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+    .timeline { position: relative; padding-left: 1.5rem; border-left: 2px solid var(--line); list-style: none; }
+    .timeline-item { position: relative; margin-bottom: 1.5rem; }
+    .timeline-marker { position: absolute; left: -1.4rem; top: 0.4rem; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg-primary); box-shadow: 0 0 0 2px var(--accent); }
+    .timeline-content { padding: 1.25rem; }
+    .timeline-content .year { color: var(--accent); font-weight: 600; font-size: 0.75rem; display: block; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    .timeline-content h4 { font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .timeline-content .company { color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 0.5rem; font-style: italic; }
+    .responsibilities { list-style: none; margin-top: 0.5rem; }
+    .responsibilities li { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.3rem; }
+
+    .side-col { display: flex; flex-direction: column; gap: 1.25rem; }
+    .subsection-title { font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--accent); font-weight: 700; }
+    .mini-list { list-style: none; }
+    .mini-list li { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); font-size: 0.85rem; }
+    .mini-list .year { color: var(--accent); font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.3rem; text-transform: uppercase; }
+    .mini-list strong { display: block; margin-bottom: 0.2rem; font-size: 0.9rem; }
+    .mini-list em { color: var(--text-secondary); font-size: 0.8rem; font-style: normal; display: block; margin-bottom: 0.3rem; }
+    .edu-details { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.3rem; line-height: 1.4; }
+
+    .cert-grid { display: flex; flex-direction: column; gap: 0.5rem; }
+    .cert-item { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; font-weight: 500; }
+    .cert-actions { display: flex; gap: 0.4rem; }
+    .text-btn { background: none; border: none; color: var(--accent); font-size: 0.7rem; cursor: pointer; font-weight: 600; text-transform: uppercase; }
+    .text-btn:hover { text-decoration: underline; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 0.75rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+    .form-group label { font-size: 0.75rem; font-weight: 600; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.03em; }
+    .form-group input, .form-group textarea { padding: 0.75rem; border-radius: 8px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--text-primary); font-family: inherit; font-size: 0.85rem; transition: all 0.3s; }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+    .error { color: var(--accent-dark); font-weight: 600; font-size: 0.7rem; }
+    .success-msg { color: var(--accent); font-weight: 600; text-align: center; margin-top: 0.5rem; font-size: 0.85rem; }
+    .full-width { width: 100%; }
+
+    .contact-item { display: flex; gap: 0.75rem; margin-bottom: 1.25rem; align-items: flex-start; }
+    .contact-item .icon { color: var(--accent); display: flex; margin-top: 2px; }
+    .contact-item strong { display: block; margin-bottom: 0.2rem; font-size: 0.85rem; }
+    .contact-item p { color: var(--text-secondary); font-size: 0.85rem; }
+
+    .availability-card .check-list { list-style: none; margin: 0.75rem 0; }
+    .availability-card .check-list li { margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; display: flex; align-items: center; }
+    .response-time { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--line); font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+
+    .footer { padding: 3rem 2.5rem 1.5rem; background: var(--bg-secondary); border-top: 1px solid var(--line); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .footer-profile { width: 80px; height: 80px; border-radius: 12px; overflow: hidden; margin-bottom: 1rem; border: 2px solid var(--accent); }
+    .footer-profile img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .footer-brand h3 { font-size: 1.25rem; margin-bottom: 0.4rem; }
+    .footer-brand p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; }
+
+    .footer h4 { font-size: 0.85rem; margin-bottom: 0.75rem; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.5rem; }
+    .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; transition: color 0.3s; cursor: pointer; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-bottom { padding-top: 1.5rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; color: var(--text-secondary); font-size: 0.75rem; flex-wrap: wrap; gap: 1rem; }
+    .mt-2 { margin-top: 0.75rem; }
+    .muted { color: var(--text-secondary); }
+    .social-links { display: flex; gap: 0.5rem; }
+    .social-links a { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-secondary); border: 1px solid var(--line); display: grid; place-items: center; color: var(--text-secondary); transition: all 0.3s; }
+    .social-links a:hover { background: var(--accent); color: white; transform: translateY(-2px); border-color: var(--accent); }
+
+    @media (max-width: 1024px) {
+      .top-nav { display: none; }
+      .main-content { padding-top: 60px; padding-bottom: 0; }
+      
+      .mobile-header { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1.25rem; background: var(--bg-glass); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 100; }
+      .brand { font-weight: 700; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; }
+      .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
+      .menu-btn { background: none; border: none; width: 30px; height: 30px; position: relative; cursor: pointer; }
+      .menu-btn span, .menu-btn span::before, .menu-btn span::after { display: block; width: 100%; height: 2px; background: var(--text-primary); position: absolute; transition: all 0.3s; }
+      .menu-btn span::before { content: ''; top: -8px; }
+      .menu-btn span::after { content: ''; top: 8px; }
+      .menu-btn span.open { background: transparent; }
+      .menu-btn span.open::before { transform: rotate(45deg); top: 0; }
+      .menu-btn span.open::after { transform: rotate(-45deg); top: 0; }
+      
+      .mobile-menu { position: fixed; top: 54px; left: 0; right: 0; background: var(--bg-primary); border-bottom: 1px solid var(--line); padding: 0.75rem; z-index: 99; display: flex; flex-direction: column; gap: 0.25rem; }
+      .mobile-menu a { padding: 0.75rem; color: var(--text-primary); text-decoration: none; font-weight: 600; border-radius: 8px; transition: background 0.3s; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; }
+      .mobile-menu a:hover { background: var(--accent-light); color: var(--accent); }
+      
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .hero-photo-large { width: 180px; height: 180px; }
+      .hero-buttons { justify-content: center; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-content-wrapper { grid-template-columns: 1fr; text-align: left; }
+      .about-profile-square { width: 150px; height: 150px; margin: 0 auto; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .grid-2, .grid-3, .two-col, .footer-grid, .project-detail-card, .feature-list { grid-template-columns: 1fr; }
+      .view-section { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- YOUR EXACT TEMPLATE - UNCHANGED -->
+    <div class="root">
+      <transition name="fade">
+        <div v-if="loading" class="loader" role="status" aria-label="Loading portfolio">
+          <div class="circle-dots">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <h2 class="loader-text">Mukunzi Nelly</h2>
+        </div>
+      </transition>
+
+      <div class="smoke-bg" aria-hidden="true">
+        <div class="smoke-blob blob-1"></div>
+        <div class="smoke-blob blob-2"></div>
+        <div class="smoke-blob blob-3"></div>
+      </div>
+
+      <header class="mobile-header">
+        <div class="brand">
+          <span class="dot" aria-hidden="true"></span> Mukunzi Nelly
+        </div>
+        <button class="menu-btn" @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle navigation menu" :aria-expanded="mobileMenuOpen">
+          <span :class="{ open: mobileMenuOpen }"></span>
+        </button>
+      </header>
+
+      <nav v-if="mobileMenuOpen" class="mobile-menu" aria-label="Mobile navigation">
+        <a v-for="item in navItems" :key="item.id" @click.prevent="setView(item.id); mobileMenuOpen = false" :aria-current="activeView === item.id ? 'page' : undefined">
+          <span class="mobile-icon" v-html="item.icon" aria-hidden="true"></span> {{ item.label }}
+        </a>
+      </nav>
+
+      <nav class="top-nav" aria-label="Main navigation">
+        <div class="nav-profile">
+          <div class="profile-photo-small">
+            <img src="/profile.png" alt="Mukunzi Nelly - Software Engineer" width="40" height="40" />
+          </div>
+          <div class="nav-profile-info">
+            <span class="name">Mukunzi Nelly</span>
+            <span class="title">Software Engineer</span>
+          </div>
+        </div>
+        
+        <div class="nav-links">
+          <a 
+            v-for="item in navItems" 
+            :key="item.id"
+            :class="['nav-item', { active: activeView === item.id }]"
+            :aria-current="activeView === item.id ? 'page' : undefined"
+            @click.prevent="setView(item.id)"
+          >
+            <span class="nav-icon" v-html="item.icon" aria-hidden="true"></span>
+            <span class="nav-label">{{ item.label }}</span>
+          </a>
+        </div>
+      </nav>
+
+      <main class="main-content">
+        <section v-if="activeView === 'home'" class="view-section fade-in" aria-labelledby="home-heading">
+          <div class="hero">
+            <div class="hero-visual">
+              <div class="hero-photo-large">
+                <img src="/profile.png" alt="Mukunzi Nelly - Full Stack Software Engineer based in Kigali, Rwanda" width="220" height="220" />
+              </div>
+            </div>
+            <div class="hero-text">
+              <h1 id="home-heading">Hi, I'm <span class="gradient-text">Mukunzi Nelly</span></h1>
+              <h2 class="typewriter-container" aria-label="Software Engineer, Full Stack Developer, Problem Solver">
+                <span class="typewriter-text">{{ typed }}</span><span class="caret" aria-hidden="true">|</span>
+              </h2>
+              <p class="subtitle">Building innovative digital solutions, scalable APIs, and modern web applications with passion and precision.</p>
+              <div class="hero-buttons">
+                <button class="btn-primary" @click="setView('projects')">View My Projects</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-grid" role="list" aria-label="Professional statistics">
+            <div v-for="(stat, i) in stats" :key="stat.label" class="stat-card glass" role="listitem">
+              <h3 class="stat-number">{{ counters[i] }}{{ stat.suffix }}</h3>
+              <p class="stat-label">{{ stat.label }}</p>
+            </div>
+          </div>
+
+          <div class="about-section reveal-in" aria-labelledby="about-heading">
+            <h2 id="about-heading" class="section-title">About Me</h2>
+            <div class="about-content-wrapper">
+              <div class="about-profile-square">
+                <img src="/profile.png" alt="Mukunzi Nelly working on software architecture" width="200" height="200" loading="lazy" />
+              </div>
+              <div class="about-text">
+                <p class="lead">A software developer passionate about building modern web applications, APIs, cloud solutions, and scalable systems.</p>
+                <p>I am Mukunzi Nelly, a dedicated Software Engineer designing high-quality software solutions that create real impact. Currently, I work at <strong>Dione Coaching Center Ltd</strong>, developing modern web applications, digital platforms, and enterprise software.</p>
+                <p>I specialize in creating responsive full-stack applications using modern technologies while focusing on clean architecture, maintainable code, security, and exceptional user experiences.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="expertise-section reveal-in" aria-labelledby="expertise-heading">
+            <h2 id="expertise-heading" class="section-title">Technical Expertise</h2>
+            <div class="grid-2">
+              <article v-for="exp in expertise" :key="exp.title" class="glass card hoverable">
+                <div class="card-icon" v-html="exp.icon" aria-hidden="true"></div>
+                <h3>{{ exp.title }}</h3>
+                <p>{{ exp.desc }}</p>
+                <ul v-if="exp.tech" class="tech-list" aria-label="Technologies used">
+                  <li v-for="t in exp.tech" :key="t">{{ t }}</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+
+          <div class="testimonials-section reveal-in" aria-labelledby="testimonials-heading">
+            <h2 id="testimonials-heading" class="section-title">What People Say</h2>
+            <p class="section-subtitle">Testimonials from colleagues and clients about my work and collaboration</p>
+            
+            <div class="testimonials-grid">
+              <article v-for="testimonial in testimonials" :key="testimonial.name" class="testimonial-card glass card hoverable">
+                <div class="testimonial-header">
+                  <div class="testimonial-avatar" aria-hidden="true">
+                    <span>{{ testimonial.initial }}</span>
+                  </div>
+                  <div class="testimonial-info">
+                    <h4>{{ testimonial.name }}</h4>
+                    <span class="testimonial-role">{{ testimonial.role }}</span>
+                    <span class="testimonial-company">{{ testimonial.company }}</span>
+                  </div>
+                </div>
+                <blockquote class="testimonial-text">"{{ testimonial.text }}"</blockquote>
+              </article>
+            </div>
+          </div>
+
+          <div class="cta-section reveal-in" aria-labelledby="cta-heading">
+            <div class="cta-content glass">
+              <h2 id="cta-heading">Ready to Work Together?</h2>
+              <p>Let's discuss your project and see how I can help bring your ideas to life with innovative technology solutions.</p>
+              <button class="btn-primary" @click="setView('contact')">Get Started</button>
+            </div>
+          </div>
+        </section>
+
+        <section v-if="activeView === 'projects'" class="view-section fade-in" aria-labelledby="projects-heading">
+          <h2 id="projects-heading" class="section-title">My Projects</h2>
+          <p class="section-subtitle">Explore my portfolio of impactful projects showcasing expertise in Full Stack Development, AI Integration, Cloud Platforms, and Modern Web Technologies.</p>
+          
+          <div class="tabs" role="tablist" aria-label="Project categories">
+            <button v-for="tab in projectTabs" :key="tab" role="tab" :aria-selected="activeTab === tab" :class="['tab-btn', { active: activeTab === tab }]" @click="activeTab = tab">
+              {{ tab }}
+            </button>
+          </div>
+
+          <div v-if="activeTab === 'Featured Projects'" class="grid-2">
+            <article v-for="p in projects" :key="p.title" class="glass card project-card hoverable">
+              <div class="project-thumb">
+                <img :src="p.image" :alt="p.title + ' project screenshot'" class="project-thumb-img" width="400" height="200" loading="lazy" />
+                <div class="project-thumb-overlay" aria-hidden="true">
+                  <span>{{ p.title.charAt(0) }}</span>
+                </div>
+              </div>
+              <div class="project-info">
+                <div class="project-meta">
+                  <span v-if="p.featured" class="badge featured">Featured</span>
+                  <span class="badge">{{ p.category }}</span>
+                  <span class="year">{{ p.year }}</span>
+                </div>
+                <h3>{{ p.title }}</h3>
+                <p>{{ p.shortDesc }}</p>
+                <div class="project-links">
+                  <button @click="setView('project-detail', p)" class="btn-sm primary">View Details</button>
+                  <a :href="p.github" class="btn-sm secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div v-if="activeTab === 'Case Studies'" class="grid-1">
+            <article v-for="cs in caseStudies" :key="cs.title" class="glass card hoverable">
+              <h3>{{ cs.title }}</h3>
+              <p><strong>Problem:</strong> {{ cs.problem }}</p>
+              <p><strong>Solution:</strong> {{ cs.solution }}</p>
+            </article>
+          </div>
+
+          <div v-if="activeTab === 'Other Projects'" class="grid-3">
+            <article v-for="op in otherProjects" :key="op.title" class="glass card hoverable">
+              <h3>{{ op.title }}</h3>
+              <p>{{ op.desc }}</p>
+              <a :href="op.github" class="link-sm primary" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+            </article>
+          </div>
+        </section>
+
+        <section v-if="activeView === 'project-detail' && selectedProject" class="view-section fade-in" :aria-labelledby="'project-' + selectedProject.title">
+          <button @click="setView('projects')" class="btn-secondary mb-4">← Back to Projects</button>
+          <article class="glass card project-detail-card">
+            <div class="project-thumb-large">
+              <img :src="selectedProject.image" :alt="selectedProject.title + ' detailed view'" class="project-detail-img" width="600" height="300" loading="lazy" />
+            </div>
+            <div class="project-detail-content">
+              <div class="project-meta">
+                <span v-if="selectedProject.featured" class="badge featured">Featured</span>
+                <span class="badge">{{ selectedProject.category }}</span>
+                <span class="year">{{ selectedProject.year }}</span>
+              </div>
+              <h2 :id="'project-' + selectedProject.title" class="detail-title">{{ selectedProject.title }}</h2>
+              <p class="detail-desc">{{ selectedProject.desc }}</p>
+              
+              <div v-if="selectedProject.features" class="detail-features">
+                <h3>Key Features</h3>
+                <ul class="feature-list">
+                  <li v-for="f in selectedProject.features" :key="f">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    {{ f }}
+                  </li>
+                </ul>
+              </div>
+
+              <div class="project-links mt-4">
+                <a :href="selectedProject.github" class="btn-sm secondary" target="_blank" rel="noopener noreferrer">View GitHub</a>
+                <a :href="selectedProject.live" class="btn-sm primary" target="_blank" rel="noopener noreferrer">Visit Live Site</a>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section v-if="activeView === 'experience'" class="view-section fade-in" aria-labelledby="experience-heading">
+          <h2 id="experience-heading" class="section-title">My Experience</h2>
+          <p class="section-subtitle">A comprehensive overview of my professional journey, education, technical expertise, and continuous growth.</p>
+
+          <div class="two-col">
+            <div class="timeline-container">
+              <h3 class="subsection-title">Work Experience</h3>
+              <ul class="timeline">
+                <li v-for="exp in workExperience" :key="exp.role" class="timeline-item">
+                  <div class="timeline-marker" aria-hidden="true"></div>
+                  <div class="timeline-content glass">
+                    <span class="year">{{ exp.year }}</span>
+                    <h4>{{ exp.role }}</h4>
+                    <p class="company">{{ exp.company }}</p>
+                    <p>{{ exp.desc }}</p>
+                    <ul class="responsibilities">
+                      <li v-for="r in exp.responsibilities" :key="r">• {{ r }}</li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="side-col">
+              <div class="glass card mb-4">
+                <h3 class="subsection-title">Education</h3>
+                <ul class="mini-list">
+                  <li v-for="edu in education" :key="edu.school">
+                    <span class="year">{{ edu.year }}</span>
+                    <strong>{{ edu.degree }}</strong>
+                    <em>{{ edu.school }}</em>
+                    <p v-if="edu.details" class="edu-details">{{ edu.details }}</p>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="glass card">
+                <h3 class="subsection-title">Certifications</h3>
+                <div class="cert-grid">
+                  <div v-for="cert in certifications" :key="cert" class="cert-item glass-sm">
+                    <span>{{ cert }}</span>
+                    <div class="cert-actions">
+                      <button class="text-btn" aria-label="Preview {{ cert }} certificate">Preview</button>
+                      <button class="text-btn" aria-label="Download {{ cert }} certificate">Download</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section v-if="activeView === 'contact'" class="view-section fade-in" aria-labelledby="contact-heading">
+          <h2 id="contact-heading" class="section-title">Contact Me</h2>
+          <p class="section-subtitle">Let's discuss your next software project, collaboration, or freelance opportunity.</p>
+
+          <div class="two-col">
+            <form class="glass card contact-form" @submit.prevent="submitForm" novalidate aria-label="Contact form">
+              <div class="form-group">
+                <label for="contact-name">Name</label>
+                <input id="contact-name" v-model="form.name" type="text" placeholder="Your full name" required autocomplete="name" />
+                <span v-if="errors.name" class="error" role="alert">{{ errors.name }}</span>
+              </div>
+              <div class="form-group">
+                <label for="contact-email">Email</label>
+                <input id="contact-email" v-model="form.email" type="email" placeholder="your.email@example.com" required autocomplete="email" />
+                <span v-if="errors.email" class="error" role="alert">{{ errors.email }}</span>
+              </div>
+              <div class="form-group">
+                <label for="contact-subject">Subject</label>
+                <input id="contact-subject" v-model="form.subject" type="text" placeholder="What's this about?" autocomplete="off" />
+              </div>
+              <div class="form-group">
+                <label for="contact-message">Message</label>
+                <textarea id="contact-message" v-model="form.message" rows="5" placeholder="Tell me about your project or inquiry..." required></textarea>
+                <span v-if="errors.message" class="error" role="alert">{{ errors.message }}</span>
+              </div>
+              <button type="submit" class="btn-primary full-width" :disabled="isSubmitting">
+                {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+              </button>
+              <p v-if="formSuccess" class="success-msg" role="status">✓ Message sent successfully! I'll reply within 24 hours.</p>
+            </form>
+
+            <aside class="side-col">
+              <div class="glass card mb-4">
+                <h3>Contact Information</h3>
+                <address class="contact-info" style="font-style: normal;">
+                  <div class="contact-item">
+                    <span class="icon" v-html="icons.mail" aria-hidden="true"></span>
+                    <div>
+                      <strong>Email</strong>
+                      <p><a href="mailto:nellycacana7@gmail.com" style="color: inherit; text-decoration: none;">nellycacana7@gmail.com</a></p>
+                    </div>
+                  </div>
+                  <div class="contact-item">
+                    <span class="icon" v-html="icons.mapPin" aria-hidden="true"></span>
+                    <div>
+                      <strong>Location</strong>
+                      <p>Kigali, Rwanda</p>
+                    </div>
+                  </div>
+                  <div class="contact-item">
+                    <span class="icon" v-html="icons.phone" aria-hidden="true"></span>
+                    <div>
+                      <strong>Phone</strong>
+                      <p><a href="tel:+250798437759" style="color: inherit; text-decoration: none;">+250 798 437 759</a></p>
+                    </div>
+                  </div>
+                  <div class="contact-item">
+                    <span class="icon" v-html="icons.whatsapp" aria-hidden="true"></span>
+                    <div>
+                      <strong>WhatsApp</strong>
+                      <p><a href="https://wa.me/250798437759" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">+250 798 437 759</a></p>
+                    </div>
+                  </div>
+                </address>
+              </div>
+
+              <div class="glass card availability-card">
+                <h3>Availability</h3>
+                <p>Available for:</p>
+                <ul class="check-list">
+                  <li><span v-html="icons.check" aria-hidden="true"></span> Freelance</li>
+                  <li><span v-html="icons.check" aria-hidden="true"></span> Full-Time Opportunities</li>
+                  <li><span v-html="icons.check" aria-hidden="true"></span> Remote Work</li>
+                  <li><span v-html="icons.check" aria-hidden="true"></span> Open Source Collaboration</li>
+                </ul>
+                <p class="response-time"><strong>Response Time:</strong> Within 24 Hours</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <div class="footer-profile">
+                <img src="/profile.png" alt="Mukunzi Nelly" width="80" height="80" loading="lazy" />
+              </div>
+              <h3>Mukunzi Nelly</h3>
+              <p>Software Engineer</p>
+              <p class="muted">Building innovative digital solutions with passion and precision.</p>
+            </div>
+            <div>
+              <h4>Quick Links</h4>
+              <ul class="footer-links">
+                <li v-for="item in navItems" :key="item.id"><a @click.prevent="setView(item.id)" style="cursor: pointer;">{{ item.label }}</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Technologies</h4>
+              <ul class="footer-links">
+                <li>Vue.js / React</li>
+                <li>Node.js / Express</li>
+                <li>Laravel / PHP</li>
+                <li>MongoDB / MySQL</li>
+                <li>TailwindCSS / Docker</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Connect</h4>
+              <div class="social-links">
+                <a v-for="social in socials" :key="social.label" :href="social.href" target="_blank" rel="noopener noreferrer" :aria-label="'Visit my ' + social.label + ' profile'">
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path :d="social.d" fill="currentColor" /></svg>
+                </a>
+              </div>
+              <p class="muted mt-2">Kigali, Rwanda</p>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <p>© {{ new Date().getFullYear() }} Mukunzi Nelly. All Rights Reserved.</p>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, reactive, onMounted, onBeforeUnmount, watch } = Vue;
+
+    createApp({
+      setup() {
+        const loading = ref(true);
+        const activeView = ref('home');
+        const selectedProject = ref(null);
+        const mobileMenuOpen = ref(false);
+        const activeTab = ref('Featured Projects');
+        const typed = ref('');
+        const counters = ref([0, 0, 0, 0]);
+        const isSubmitting = ref(false);
+        const formSuccess = ref(false);
+
+        const me = { name: 'Mukunzi Nelly', title: 'Software Engineer', resume: '/Mukunzi_Nelly_CV.pdf' };
+
+        const icons = {
+          home: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>',
+          projects: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>',
+          experience: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM10 4h4v3h-4V4z"></path></svg>',
+          contact: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>',
+          code: '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>',
+          book: '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>',
+          users: '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
+          rocket: '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>',
+          mail: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>',
+          mapPin: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>',
+          phone: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>',
+          whatsapp: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>',
+          check: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent); margin-right: 6px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>'
+        };
+
+        const navItems = [
+          { id: 'home', label: 'Home', icon: icons.home },
+          { id: 'projects', label: 'Projects', icon: icons.projects },
+          { id: 'experience', label: 'Experience', icon: icons.experience },
+          { id: 'contact', label: 'Contact', icon: icons.contact }
+        ];
+
+        const socials = [
+          { label: 'GitHub', href: 'https://github.com/', d: 'M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z' },
+          { label: 'LinkedIn', href: 'https://linkedin.com/', d: 'M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4V9Z' },
+          { label: 'Instagram', href: 'https://instagram.com/', d: 'M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z M17.5 6.5h.01 M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2z' },
+          { label: 'WhatsApp', href: 'https://wa.me/250798437759', d: 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z' },
+          { label: 'Email', href: 'mailto:nellycacana7@gmail.com', d: 'M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.4.5 7.6 5.6L19.6 6H4.4Z' }
+        ];
+
+        const stats = [
+          { label: 'Projects Completed', value: 20, suffix: '+' },
+          { label: 'Years Experience', value: 3, suffix: '+' },
+          { label: 'Project Success', value: 100, suffix: '%' },
+          { label: 'Technologies', value: 15, suffix: '+' }
+        ];
+
+        const expertise = [
+          { title: 'Full Stack Development', desc: 'Building scalable web applications using modern technologies.', icon: icons.code },
+          { title: 'Learning & Growth', desc: 'Continuously learning new tools, frameworks, and best practices.', icon: icons.book },
+          { title: 'Team Collaboration', desc: 'Working closely with designers, developers, and stakeholders.', icon: icons.users },
+          { title: 'Modern Web Development', desc: 'Specialized in building responsive, high-performance applications.', icon: icons.rocket, tech: ['Vue.js', 'React', 'Node.js', 'Express', 'Laravel', 'PHP', 'MySQL', 'MongoDB', 'TailwindCSS', 'Docker'] }
+        ];
+
+        const testimonials = [
+          { name: 'Mugisha Chretien', initial: 'M', role: 'UI/UX Designer', company: 'Creative Studio', text: 'Nelly\'s attention to detail and user experience understanding is exceptional. He consistently delivers intuitive and beautiful interfaces that users love.' },
+          { name: 'Mugisha Afani', initial: 'M', role: 'Fullstack Developer', company: 'Tech Solutions', text: 'Working with Nelly on fullstack projects has been amazing. His technical skills and problem-solving abilities make complex development tasks seem effortless.' },
+          { name: 'Uwizera Jean Bosco', initial: 'U', role: 'AI/ML Engineer', company: 'AI Research Lab', text: 'Nelly\'s expertise in AI and machine learning is outstanding. He has a deep understanding of complex algorithms and always finds innovative solutions.' },
+          { name: 'Umurerwa Aline', initial: 'U', role: 'Frontend Developer', company: 'Web Agency', text: 'Nelly\'s frontend development skills are top-notch. He creates responsive, performant, and visually stunning user interfaces that exceed expectations.' },
+          { name: 'Ibyiringiro Onesmo', initial: 'I', role: 'Cloud Computing/Software Engineer', company: 'Dione Coaching Center', text: 'Nelly is an excellent team player and communicator. His project management skills and ability to deliver on time make him a valuable asset to any team.' },
+          { name: 'Ihirwe Patrick', initial: 'I', role: 'Senior UI/UX Designer', company: 'Design Studio', text: 'Nelly\'s collaboration skills and technical expertise are outstanding. His ability to translate complex design requirements into functional, beautiful applications is remarkable.' }
+        ];
+
+        const projects = [
+          { title: 'Foste Furniture', category: 'E-Commerce', year: '2025', shortDesc: 'Modern furniture e-commerce platform with elegant UI and seamless shopping experience.', desc: 'Foste Furniture is a premium e-commerce platform showcasing modern furniture at great prices. Features include a dark-themed elegant UI, product carousel with "Next Up" preview, new arrivals badge, video preview functionality, and a sophisticated product catalog.', features: ['Dark Theme Elegant UI', 'Product Carousel with Preview', 'New Arrivals Badge System', 'Video Product Preview', 'Responsive Product Catalog', 'Shopping Cart Integration'], image: '/foste-furniture.jpg', github: 'https://github.com/', live: '#', featured: true },
+          { title: 'DroneX', category: 'Product Landing', year: '2025', shortDesc: 'Premium drone product landing page with immersive dark theme and feature showcases.', desc: 'DroneX is a high-end product landing page for an ultr portable foldable drone. Features a dramatic dark theme with purple accents, 3D product visualization, gesture mode showcase, and detailed tech specs.', features: ['Dark Theme with Purple Accents', '3D Product Visualization', 'Gesture Mode Showcase', 'Tech Specs Grid', 'Responsive Design', 'Smooth Animations'], image: '/dronex.jpg', github: 'https://github.com/', live: '#', featured: true },
+          { title: 'Kraftwerk Elite', category: 'Automotive', year: '2025', shortDesc: 'Luxury automotive landing page for German performance vehicles.', desc: 'Kraftwerk Elite is a premium automotive website showcasing German engineering excellence. Features include performance specs, technology highlights, interior showcases, and a sophisticated inquiry form.', features: ['Performance Specs Display', 'Technology Section', 'Interior Showcase', 'Inquiry Form', 'Responsive Design', 'Premium Typography'], image: '/kraftwerk.jpg', github: 'https://github.com/', live: '#', featured: true },
+          { title: 'Business Analytics Dashboard', category: 'Data Visualization', year: '2025', shortDesc: 'Interactive business growth analytics with holographic data visualization.', desc: 'A modern business analytics platform featuring holographic-style data visualization, growth charts, and interactive dashboards. Designed for enterprise clients to track KPIs and business metrics in real-time.', features: ['Holographic Data Visualization', 'Interactive Charts', 'Real-time KPI Tracking', 'Enterprise Dashboard', 'Responsive Design'], image: '/business-growth.jpg', github: 'https://github.com/', live: '#', featured: true },
+          { title: 'Skills Platform', category: 'EdTech', year: '2025', shortDesc: 'Interactive skills assessment and learning platform with holographic UI.', desc: 'An innovative EdTech platform featuring a holographic interface for skills assessment and learning path visualization. Users can explore different skill categories through an interactive network diagram.', features: ['Holographic UI Design', 'Interactive Skill Network', 'Assessment System', 'Learning Path Visualization', 'Responsive Design'], image: '/skills.jpg', github: 'https://github.com/', live: '#', featured: true },
+          { title: 'Urukundo - Dione Coaching Charity Platform', category: 'Social Impact', year: '2025', shortDesc: 'Transformative charity platform empowering members.', desc: 'Transformative charity and partnership platform empowering Dione Coaching Center Ltd members, donors, and global partners.', features: ['Secure Donations', 'Fund Tracking', 'Project Showcase', 'Admin Dashboard'], image: '/foste-furniture.jpg', github: 'https://github.com/', live: '#', featured: true }
+        ];
+
+        const projectTabs = ['Featured Projects', 'Case Studies', 'Other Projects'];
+        const caseStudies = [
+          { title: 'Agura Ticketing App', problem: 'Manual ticketing created delays, fraud risks, and poor seat management.', solution: 'Developed a mobile-first event ticketing platform supporting QR ticket verification, real-time seat reservations, and secure payments.' },
+          { title: 'Hinga AI', problem: 'Farmers struggled to identify crop diseases early.', solution: 'Built an AI-powered crop disease detection platform using Computer Vision to help farmers improve productivity.' }
+        ];
+        const otherProjects = [
+          { title: 'HingaAI', desc: 'AI-powered crop disease detection.', github: 'https://github.com/' },
+          { title: 'Genzura', desc: 'Online Inventory Management System.', github: 'https://github.com/' },
+          { title: 'T-HealthSync', desc: 'AI Healthcare Monitoring Platform.', github: 'https://github.com/' }
+        ];
+
+        const workExperience = [
+          { year: '2025 — Present', role: 'Software Engineer', company: 'Dione Coaching Center Ltd', desc: 'Developing enterprise web applications and digital platforms.', responsibilities: ['Developing enterprise web applications', 'Building REST APIs', 'Database Architecture', 'Responsive Frontend Development'] },
+          { year: '2025 — Present', role: 'Backend Developer', company: 'LOXOTECH TECH', desc: 'Working on National Land Authority systems.', responsibilities: ['Backend APIs', 'Architecture', 'Government Systems', 'Security'] },
+          { year: 'June 2025 — Present', role: 'Software Developer', company: 'AGURA TICKETS', desc: 'Developing modern mobile ticketing solutions.', responsibilities: ['Mobile Development', 'API Integration', 'Testing', 'Mentoring Developers'] },
+          { year: '2022 — Present', role: 'Freelance Full Stack Developer', company: 'Independent', desc: 'Working with React, Vue, Next.js, NestJS, Express, Docker, PostgreSQL.', responsibilities: ['Fullstack apps', 'Secure APIs', 'Docker & CI/CD', 'Cloud deployments'] }
+        ];
+
+        const education = [
+          { year: '2023 – Present', degree: 'A Level - Software Programming and Embedded Systems', school: 'COLLEGE DE BETHEL/Aparude', details: 'Currently studying Software Programming and Embedded Systems' },
+          { year: 'Until 2023', degree: 'O Level', school: 'E.S Bugarama', details: 'Completed O Level at E.S Bugarama' },
+          { year: 'Primary Education', degree: 'Primary School', school: "L'EDUCATEUR", details: 'Completed primary education at L\'EDUCATEUR' }
+        ];
+
+        const certifications = ['Network Research', 'Backend Development', 'Frontend Development', 'Cloud Computing', 'Linux', 'Git', 'Docker', 'API Development'];
+
+        const form = reactive({ name: '', email: '', subject: '', message: '' });
+        const errors = reactive({});
+
+        const roles = ['Full Stack Developer', 'Vue Developer', 'Backend Engineer', 'Problem Solver'];
+        let ri = 0, ci = 0, del = false, timer;
+
+        function tick() {
+          const w = roles[ri % roles.length];
+          ci += del ? -1 : 1;
+          typed.value = w.slice(0, ci);
+          let t = del ? 40 : 80;
+          if (!del && ci === w.length) { t = 1500; del = true; }
+          else if (del && ci === 0) { del = false; ri++; t = 300; }
+          timer = setTimeout(tick, t);
+        }
+
+        function runCounters() {
+          const start = performance.now(), dur = 1500;
+          const step = (now) => {
+            const p = Math.min((now - start) / dur, 1);
+            const e = 1 - Math.pow(1 - p, 3);
+            counters.value = stats.map(s => Math.round(s.value * e));
+            if (p < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        }
+
+        function setView(viewId, project = null) {
+          activeView.value = viewId;
+          selectedProject.value = project;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function submitForm() {
+          errors.name = form.name.length < 2 ? 'Please enter your name.' : '';
+          errors.email = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) ? 'Enter a valid email.' : '';
+          errors.message = form.message.length < 10 ? 'Message must be at least 10 characters.' : '';
+          
+          if (!errors.name && !errors.email && !errors.message) {
+            isSubmitting.value = true;
+            setTimeout(() => {
+              isSubmitting.value = false;
+              formSuccess.value = true;
+              form.name = ''; form.email = ''; form.subject = ''; form.message = '';
+              setTimeout(() => { formSuccess.value = false }, 5000);
+            }, 1500);
+          }
+        }
+
+        // Dynamic SEO Title & Meta Updater
+        watch(activeView, () => {
+          const titles = {
+            home: 'Mukunzi Nelly | Software Engineer & Full Stack Developer',
+            projects: 'Projects | Mukunzi Nelly - Software Engineer',
+            experience: 'Experience & Education | Mukunzi Nelly',
+            contact: 'Contact Mukunzi Nelly | Software Engineer',
+            'project-detail': selectedProject.value ? `${selectedProject.value.title} | Mukunzi Nelly` : 'Project Details | Mukunzi Nelly'
+          };
+          document.title = titles[activeView.value] || titles.home;
+          
+          const desc = document.querySelector('meta[name="description"]');
+          if (desc) {
+            if (activeView.value === 'project-detail' && selectedProject.value) {
+              desc.content = `Learn about the ${selectedProject.value.title} project, built with ${selectedProject.value.category} technologies by Mukunzi Nelly.`;
+            } else {
+              desc.content = "Portfolio of Mukunzi Nelly, a Software Engineer specializing in Full Stack Development, Vue.js, Node.js, Laravel, and cloud solutions based in Kigali, Rwanda.";
+            }
+          }
+        });
+
+        onMounted(() => {
+          setTimeout(() => { loading.value = false }, 1500);
+          tick();
+          runCounters();
+        });
+
+        onBeforeUnmount(() => {
+          clearTimeout(timer);
+        });
+
+        return {
+          loading, activeView, selectedProject, mobileMenuOpen, activeTab, typed, counters, isSubmitting, formSuccess,
+          me, icons, navItems, socials, stats, expertise, testimonials, projects, projectTabs, caseStudies, otherProjects,
+          workExperience, education, certifications, form, errors,
+          setView, submitForm
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
 </html>
